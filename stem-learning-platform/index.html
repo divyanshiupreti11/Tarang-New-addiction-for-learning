@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEM Quest - Educational Learning Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <h1>🚀 STEM Quest</h1>
+                    <p>Adventure Learning Platform</p>
+                </div>
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="playerName" class="form-label">Your Name</label>
+                        <input type="text" id="playerName" class="form-control" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="playerAge" class="form-label">Age</label>
+                        <input type="number" id="playerAge" class="form-control" min="10" max="20" required placeholder="Your age">
+                    </div>
+                    <div class="form-group">
+                        <label for="playerClass" class="form-label">Class</label>
+                        <select id="playerClass" class="form-control" required>
+                            <option value="">Select your class</option>
+                            <option value="8">Class 8</option>
+                            <option value="9">Class 9</option>
+                            <option value="10">Class 10</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="schoolName" class="form-label">School Name</label>
+                        <input type="text" id="schoolName" class="form-control" required placeholder="Enter your school name">
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">🎯 Start Learning Adventure</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboardPage" class="page">
+        <header class="dashboard-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="welcome-section">
+                        <h2>Welcome back, <span id="playerDisplayName">Explorer</span>! 👋</h2>
+                        <p id="playerInfo">Class 8 • Age 14</p>
+                    </div>
+                    <div class="stats-section">
+                        <div class="stat-card">
+                            <span class="stat-icon">🪙</span>
+                            <div>
+                                <div class="stat-value" id="totalCoins">0</div>
+                                <div class="stat-label">Coins</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-icon">🏆</span>
+                            <div>
+                                <div class="stat-value" id="totalBadges">0</div>
+                                <div class="stat-label">Badges</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-icon">⭐</span>
+                            <div>
+                                <div class="stat-value" id="totalLevel">1</div>
+                                <div class="stat-label">Level</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <div class="container">
+                <section class="games-grid">
+                    <div class="game-card" onclick="showGame('quizQuest')">
+                        <div class="game-icon">🏝️</div>
+                        <h3>Quiz Quest</h3>
+                        <p>Explore islands and conquer STEM challenges!</p>
+                        <div class="game-stats">
+                            <span class="game-stat">🪙 15-30 coins</span>
+                            <span class="game-stat">📚 All subjects</span>
+                        </div>
+                        <button class="btn btn--primary">Start Adventure</button>
+                    </div>
+
+                    <div class="game-card" onclick="showGame('puzzleLab')">
+                        <div class="game-icon">🧩</div>
+                        <h3>Puzzle Lab</h3>
+                        <p>Solve mind-bending logic and math puzzles!</p>
+                        <div class="game-stats">
+                            <span class="game-stat">🪙 10-25 coins</span>
+                            <span class="game-stat">🧠 Logic & Math</span>
+                        </div>
+                        <button class="btn btn--primary">Enter Lab</button>
+                    </div>
+
+                    <div class="game-card" onclick="showGame('scienceExplorer')">
+                        <div class="game-icon">🔬</div>
+                        <h3>Science Explorer</h3>
+                        <p>Conduct virtual experiments and discoveries!</p>
+                        <div class="game-stats">
+                            <span class="game-stat">🪙 20-35 coins</span>
+                            <span class="game-stat">⚗️ Experiments</span>
+                        </div>
+                        <button class="btn btn--primary">Start Exploring</button>
+                    </div>
+
+                    <div class="game-card" onclick="showGame('mathRush')">
+                        <div class="game-icon">⚡</div>
+                        <h3>Math Rush</h3>
+                        <p>Lightning-fast math challenges await!</p>
+                        <div class="game-stats">
+                            <span class="game-stat">🪙 5-50 coins</span>
+                            <span class="game-stat">⏱️ Timed</span>
+                        </div>
+                        <button class="btn btn--primary">Rush In</button>
+                    </div>
+
+                    <div class="game-card" onclick="showGame('contestArena')">
+                        <div class="game-icon">🏆</div>
+                        <h3>Contest Arena</h3>
+                        <p>Compete in weekly STEM championships!</p>
+                        <div class="game-stats">
+                            <span class="game-stat">🪙 50+ coins</span>
+                            <span class="game-stat">👥 Multiplayer</span>
+                        </div>
+                        <button class="btn btn--primary">Join Contest</button>
+                    </div>
+                </section>
+
+                <section class="recent-achievements">
+                    <h3>Recent Achievements 🏅</h3>
+                    <div id="achievementsList" class="achievements-grid">
+                        <!-- Achievements will be populated here -->
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Quiz Quest Game -->
+    <div id="quizQuestPage" class="page game-page">
+        <header class="game-header">
+            <button class="btn btn--outline" onclick="showPage('dashboardPage')">← Back to Dashboard</button>
+            <h2>🏝️ Quiz Quest Adventure</h2>
+            <div class="game-coins">🪙 <span id="quizCoins">0</span></div>
+        </header>
+
+        <div class="quiz-quest-content">
+            <div class="island-selection" id="islandSelection">
+                <h3>Choose Your Adventure Island</h3>
+                <div class="islands-grid">
+                    <div class="island-card" onclick="startQuiz('physics')">
+                        <div class="island-icon">⚛️</div>
+                        <h4>Physics Island</h4>
+                        <p>Forces, Motion & Energy</p>
+                        <button class="btn btn--primary">Explore</button>
+                    </div>
+                    <div class="island-card" onclick="startQuiz('chemistry')">
+                        <div class="island-icon">🧪</div>
+                        <h4>Chemistry Island</h4>
+                        <p>Elements & Reactions</p>
+                        <button class="btn btn--primary">Explore</button>
+                    </div>
+                    <div class="island-card" onclick="startQuiz('mathematics')">
+                        <div class="island-icon">📐</div>
+                        <h4>Math Island</h4>
+                        <p>Numbers & Geometry</p>
+                        <button class="btn btn--primary">Explore</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-container hidden" id="quizContainer">
+                <div class="quiz-header">
+                    <div class="quiz-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="quizProgress"></div>
+                        </div>
+                        <span id="questionNumber">Question 1 of 10</span>
+                    </div>
+                    <div class="quiz-score">Score: <span id="quizScore">0</span></div>
+                </div>
+
+                <div class="question-card">
+                    <h3 id="questionText">Loading question...</h3>
+                    <div class="options-grid" id="optionsGrid">
+                        <!-- Options will be populated here -->
+                    </div>
+                </div>
+
+                <div class="quiz-feedback hidden" id="quizFeedback">
+                    <div class="feedback-content">
+                        <div class="feedback-icon" id="feedbackIcon">✅</div>
+                        <div class="feedback-text" id="feedbackText">Correct!</div>
+                        <div class="feedback-explanation" id="feedbackExplanation"></div>
+                        <button class="btn btn--primary" onclick="nextQuestion()">Next Question</button>
+                    </div>
+                </div>
+
+                <div class="quiz-results hidden" id="quizResults">
+                    <div class="results-content">
+                        <h3>🎉 Quest Complete!</h3>
+                        <div class="results-stats">
+                            <div class="result-stat">
+                                <div class="result-value" id="finalScore">0</div>
+                                <div class="result-label">Score</div>
+                            </div>
+                            <div class="result-stat">
+                                <div class="result-value" id="coinsEarned">0</div>
+                                <div class="result-label">Coins Earned</div>
+                            </div>
+                        </div>
+                        <div class="results-actions">
+                            <button class="btn btn--primary" onclick="resetQuiz()">Try Another Island</button>
+                            <button class="btn btn--outline" onclick="showPage('dashboardPage')">Back to Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Math Rush Game -->
+    <div id="mathRushPage" class="page game-page">
+        <header class="game-header">
+            <button class="btn btn--outline" onclick="showPage('dashboardPage')">← Back to Dashboard</button>
+            <h2>⚡ Math Rush Challenge</h2>
+            <div class="game-coins">🪙 <span id="rushCoins">0</span></div>
+        </header>
+
+        <div class="math-rush-content">
+            <div class="rush-start" id="rushStart">
+                <div class="rush-intro">
+                    <h3>Ready for Lightning Speed Math? ⚡</h3>
+                    <p>Answer as many questions as you can in 60 seconds!</p>
+                    <div class="rush-rules">
+                        <div class="rule">🎯 Correct answer: +10 points</div>
+                        <div class="rule">🔥 Streak bonus: +5 extra points</div>
+                        <div class="rule">⚡ Speed bonus: Complete in under 30s for +50 points</div>
+                    </div>
+                    <button class="btn btn--primary btn--lg" onclick="startMathRush()">🚀 Start Rush!</button>
+                </div>
+            </div>
+
+            <div class="rush-game hidden" id="rushGame">
+                <div class="rush-timer">
+                    <div class="timer-circle">
+                        <div class="timer-text" id="rushTimer">60</div>
+                    </div>
+                    <div class="rush-stats">
+                        <div class="rush-stat">
+                            <div class="stat-value" id="rushScore">0</div>
+                            <div class="stat-label">Score</div>
+                        </div>
+                        <div class="rush-stat">
+                            <div class="stat-value" id="rushStreak">0</div>
+                            <div class="stat-label">Streak</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rush-question">
+                    <h3 id="rushQuestionText">5 + 3 = ?</h3>
+                    <div class="rush-options" id="rushOptions">
+                        <!-- Options will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="rush-results hidden" id="rushResults">
+                <div class="results-content">
+                    <h3>⚡ Rush Complete!</h3>
+                    <div class="results-stats">
+                        <div class="result-stat">
+                            <div class="result-value" id="finalRushScore">0</div>
+                            <div class="result-label">Final Score</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-value" id="rushCoinsEarned">0</div>
+                            <div class="result-label">Coins Earned</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-value" id="bestStreak">0</div>
+                            <div class="result-label">Best Streak</div>
+                        </div>
+                    </div>
+                    <div class="results-actions">
+                        <button class="btn btn--primary" onclick="resetMathRush()">Try Again</button>
+                        <button class="btn btn--outline" onclick="showPage('dashboardPage')">Back to Dashboard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Science Explorer Game -->
+    <div id="scienceExplorerPage" class="page game-page">
+        <header class="game-header">
+            <button class="btn btn--outline" onclick="showPage('dashboardPage')">← Back to Dashboard</button>
+            <h2>🔬 Science Explorer Lab</h2>
+            <div class="game-coins">🪙 <span id="explorerCoins">0</span></div>
+        </header>
+
+        <div class="science-explorer-content">
+            <div class="lab-selection" id="labSelection">
+                <h3>Choose Your Experiment</h3>
+                <div class="experiments-grid" id="experimentsGrid">
+                    <!-- Experiments will be populated here -->
+                </div>
+            </div>
+
+            <div class="experiment-lab hidden" id="experimentLab">
+                <div class="experiment-header">
+                    <h3 id="experimentTitle">Chemical Reaction</h3>
+                    <p id="experimentDescription">Mix the materials and observe the reaction</p>
+                </div>
+
+                <div class="lab-table">
+                    <div class="materials-shelf" id="materialsShelf">
+                        <h4>Available Materials</h4>
+                        <div class="materials-grid" id="materialsGrid">
+                            <!-- Materials will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="experiment-area" id="experimentArea">
+                        <h4>Experiment Area</h4>
+                        <div class="drop-zone" id="dropZone">
+                            <p>Drag materials here to conduct experiment</p>
+                            <div class="dropped-materials" id="droppedMaterials"></div>
+                        </div>
+                        <button class="btn btn--primary" id="conductBtn" onclick="conductExperiment()" disabled>🧪 Conduct Experiment</button>
+                    </div>
+                </div>
+
+                <div class="experiment-result hidden" id="experimentResult">
+                    <div class="result-content">
+                        <div class="result-animation">🎉</div>
+                        <h3 id="resultTitle">Success!</h3>
+                        <p id="resultDescription">Amazing reaction!</p>
+                        <div class="coins-earned">+<span id="experimentCoins">25</span> coins!</div>
+                        <div class="result-actions">
+                            <button class="btn btn--primary" onclick="resetExperiment()">Try Another Experiment</button>
+                            <button class="btn btn--outline" onclick="showPage('dashboardPage')">Back to Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Puzzle Lab Game -->
+    <div id="puzzleLabPage" class="page game-page">
+        <header class="game-header">
+            <button class="btn btn--outline" onclick="showPage('dashboardPage')">← Back to Dashboard</button>
+            <h2>🧩 Puzzle Lab</h2>
+            <div class="game-coins">🪙 <span id="puzzleCoins">0</span></div>
+        </header>
+
+        <div class="puzzle-lab-content">
+            <div class="puzzle-selection" id="puzzleSelection">
+                <h3>Choose Your Puzzle Type</h3>
+                <div class="puzzle-types-grid">
+                    <div class="puzzle-type-card" onclick="startPuzzle('sequence')">
+                        <div class="puzzle-icon">🔢</div>
+                        <h4>Number Sequence</h4>
+                        <p>Find the missing number in the pattern</p>
+                        <button class="btn btn--primary">Start</button>
+                    </div>
+                    <div class="puzzle-type-card" onclick="startPuzzle('logic')">
+                        <div class="puzzle-icon">🧠</div>
+                        <h4>Logic Puzzle</h4>
+                        <p>Solve the logical reasoning challenge</p>
+                        <button class="btn btn--primary">Start</button>
+                    </div>
+                    <div class="puzzle-type-card" onclick="startPuzzle('equation')">
+                        <div class="puzzle-icon">📊</div>
+                        <h4>Math Equation</h4>
+                        <p>Balance the mathematical equation</p>
+                        <button class="btn btn--primary">Start</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="puzzle-game hidden" id="puzzleGame">
+                <div class="puzzle-header">
+                    <div class="puzzle-info">
+                        <span>Puzzle <span id="puzzleNumber">1</span> of 5</span>
+                        <span>Difficulty: <span id="puzzleDifficulty">Easy</span></span>
+                    </div>
+                    <div class="puzzle-score">Score: <span id="puzzleScore">0</span></div>
+                </div>
+
+                <div class="puzzle-container">
+                    <div class="puzzle-question" id="puzzleQuestion">
+                        <h3 id="puzzleText">What comes next in the sequence?</h3>
+                        <div class="puzzle-content" id="puzzleContent">
+                            <!-- Puzzle content will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="puzzle-answer">
+                        <input type="text" id="puzzleAnswer" class="form-control" placeholder="Enter your answer">
+                        <button class="btn btn--primary" onclick="checkPuzzleAnswer()">Submit Answer</button>
+                    </div>
+                </div>
+
+                <div class="puzzle-feedback hidden" id="puzzleFeedback">
+                    <div class="feedback-content">
+                        <div class="feedback-icon" id="puzzleFeedbackIcon">✅</div>
+                        <div class="feedback-text" id="puzzleFeedbackText">Correct!</div>
+                        <button class="btn btn--primary" onclick="nextPuzzle()">Next Puzzle</button>
+                    </div>
+                </div>
+
+                <div class="puzzle-results hidden" id="puzzleResults">
+                    <div class="results-content">
+                        <h3>🧩 Lab Session Complete!</h3>
+                        <div class="results-stats">
+                            <div class="result-stat">
+                                <div class="result-value" id="finalPuzzleScore">0</div>
+                                <div class="result-label">Final Score</div>
+                            </div>
+                            <div class="result-stat">
+                                <div class="result-value" id="puzzleCoinsEarned">0</div>
+                                <div class="result-label">Coins Earned</div>
+                            </div>
+                        </div>
+                        <div class="results-actions">
+                            <button class="btn btn--primary" onclick="resetPuzzleLab()">Try Another Set</button>
+                            <button class="btn btn--outline" onclick="showPage('dashboardPage')">Back to Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contest Arena -->
+    <div id="contestArenaPage" class="page game-page">
+        <header class="game-header">
+            <button class="btn btn--outline" onclick="showPage('dashboardPage')">← Back to Dashboard</button>
+            <h2>🏆 Contest Arena</h2>
+            <div class="game-coins">🪙 <span id="contestCoins">0</span></div>
+        </header>
+
+        <div class="contest-arena-content">
+            <div class="contest-lobby">
+                <h3>Weekly STEM Championship 🏆</h3>
+                <div class="contest-info">
+                    <div class="contest-timer">
+                        <div class="timer-label">Contest ends in:</div>
+                        <div class="timer-display" id="contestTimer">3 days 15:42:30</div>
+                    </div>
+                    <div class="contest-prizes">
+                        <h4>Prizes</h4>
+                        <div class="prize">🥇 1st Place: 500 coins + Gold Badge</div>
+                        <div class="prize">🥈 2nd Place: 300 coins + Silver Badge</div>
+                        <div class="prize">🥉 3rd Place: 200 coins + Bronze Badge</div>
+                    </div>
+                </div>
+
+                <div class="leaderboard">
+                    <h4>🏆 Current Leaderboard</h4>
+                    <div class="leaderboard-list" id="leaderboardList">
+                        <div class="leaderboard-item">
+                            <div class="rank">1</div>
+                            <div class="player">🥇 Alex Chen</div>
+                            <div class="score">2,450 pts</div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div class="rank">2</div>
+                            <div class="player">🥈 Sarah Kim</div>
+                            <div class="score">2,290 pts</div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div class="rank">3</div>
+                            <div class="player">🥉 Mike Johnson</div>
+                            <div class="score">2,180 pts</div>
+                        </div>
+                        <div class="leaderboard-item your-rank">
+                            <div class="rank">15</div>
+                            <div class="player">🌟 You</div>
+                            <div class="score" id="yourContestScore">1,250 pts</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contest-actions">
+                    <button class="btn btn--primary btn--lg" onclick="joinContest()">🚀 Join Contest Challenge</button>
+                    <p class="contest-note">Complete challenges to earn points and climb the leaderboard!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
